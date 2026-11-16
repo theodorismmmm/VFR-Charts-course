@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" width="1200" height="760" role="img" aria-labelledby="title desc">
+  <title id="title">North Harbor training sectional</title>
+  <desc id="desc">Training VFR chart with a non-towered airport, a towered airport inside Class C, a VOR, terrain, an obstruction, MEFs, a restricted area, and Class B shelves. Not for navigation.</desc>
+  <defs>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="9" height="9" patternTransform="rotate(40)">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="#1d4e89" stroke-width="1.4" />
+    </pattern>
+    <pattern id="streets" patternUnits="userSpaceOnUse" width="18" height="18">
+      <path d="M0 18 V0 H18" fill="none" stroke="#c4b48a" stroke-width="0.7" />
+    </pattern>
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="4" result="n" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.045" />
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="760" fill="#f3efd6" />
+  <g filter="url(#paper)">
+    <rect width="1200" height="760" fill="#f4f0d8" />
+
+    <!-- higher terrain, northeast -->
+    <ellipse cx="1120" cy="78" rx="170" ry="86" fill="#e7c56a" />
+    <ellipse cx="1160" cy="52" rx="100" ry="52" fill="#d59a48" />
+    <ellipse cx="1135" cy="72" rx="46" ry="28" fill="#c47c38" />
+    <g stroke="#a8642c" stroke-width="1.2" fill="none" opacity="0.85">
+      <path d="M1092 58 l8 14 l8-14" />
+      <path d="M1124 40 l7 12 l7-12" />
+      <path d="M1152 64 l6 11 l6-11" />
+    </g>
+
+    <!-- mid terrain under the high square -->
+    <ellipse cx="980" cy="168" rx="120" ry="46" fill="#efe0a4" opacity="0.9" />
+
+    <!-- water: bay and Harbor Point -->
+    <path fill="#b7dff0" d="M0 0 H188 C236 78 196 150 228 236 C262 322 236 392 292 470 C338 534 318 568 348 585 C392 608 360 652 300 692 C214 742 96 758 0 760 Z" />
+    <path fill="none" stroke="#2c6f99" stroke-width="2.4" d="M188 0 C236 78 196 150 228 236 C262 322 236 392 292 470 C338 534 318 568 348 585 C392 608 360 652 300 692 C214 742 96 758 0 760" />
+
+    <!-- city -->
+    <rect x="488" y="248" width="168" height="118" fill="#f6e4ae" />
+    <rect x="488" y="248" width="168" height="118" fill="url(#streets)" />
+    <text x="572" y="312" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="700" fill="#3a3428">SEAVIEW</text>
+
+    <!-- road -->
+    <path d="M572 360 C640 340 700 320 748 300" fill="none" stroke="#8d8680" stroke-width="3" />
+    <path d="M520 300 C480 360 450 390 438 404" fill="none" stroke="#8d8680" stroke-width="2.2" />
+
+    <!-- lat/long grid -->
+    <g stroke="#6aa4c4" stroke-width="0.8" opacity="0.85">
+      <line x1="400" y1="14" x2="400" y2="746" />
+      <line x1="800" y1="14" x2="800" y2="746" />
+      <line x1="14" y1="253" x2="1186" y2="253" />
+      <line x1="14" y1="507" x2="1186" y2="507" />
+    </g>
+
+    <!-- MEFs: same size, location is the lesson -->
+    <g font-family="ui-sans-serif, system-ui, sans-serif" font-weight="700" fill="#1d4e89" font-size="32">
+      <text x="120" y="228" text-anchor="middle">02</text>
+      <text x="560" y="112" text-anchor="middle">16</text>
+      <text x="990" y="158" text-anchor="middle">41</text>
+    </g>
+
+    <!-- Class B shelves, center off-chart at (1460, 430) -->
+    <g fill="none" stroke="#1a3f86" stroke-width="3">
+      <path d="M1200 126 A400 400 0 0 0 1200 734" />
+      <path d="M1200 340 A275 275 0 0 0 1200 520" />
+    </g>
+    <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="700" fill="#1a3f86">
+      <rect x="1036" y="412" width="36" height="20" fill="#f4f0d8" />
+      <text x="1054" y="427" text-anchor="middle">80</text>
+      <rect x="1148" y="412" width="40" height="20" fill="#f4f0d8" />
+      <text x="1168" y="427" text-anchor="middle">100</text>
+    </g>
+
+    <!-- Class C ring around NORTH -->
+    <circle cx="760" cy="280" r="118" fill="none" stroke="#d1006c" stroke-width="3" />
+    <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#d1006c">
+      <rect x="792" y="154" width="28" height="18" fill="#f4f0d8" />
+      <text x="806" y="168" text-anchor="middle">40</text>
+      <text x="828" y="312">SFC</text>
+    </g>
+
+    <!-- restricted area -->
+    <rect x="850" y="575" width="200" height="125" fill="#d6e4f2" stroke="#1d4e89" stroke-width="2.2" />
+    <rect x="850" y="575" width="200" height="125" fill="url(#hatch)" />
+    <text x="950" y="646" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700" fill="#1d4e89">R-4802</text>
+
+    <!-- VOR NOR -->
+    <g transform="translate(600 535)" fill="none" stroke="#1d4e89" stroke-width="1.6">
+      <circle r="40" />
+      <g stroke-width="1.3">
+        <path d="M0-48 v10 M0 38 v10 M-48 0 h10 M38 0 h10" />
+        <path d="M-34-34 l7 7 M27 27 l7 7 M-34 34 l7-7 M27-27 l7-7" />
+      </g>
+      <circle r="3.5" fill="#1d4e89" stroke="none" />
+    </g>
+    <text x="652" y="528" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="700" fill="#1d4e89">NOR</text>
+    <text x="652" y="546" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#1d4e89">115.4</text>
+
+    <!-- non-towered HARBOR -->
+    <g transform="translate(450 415)" stroke="#d1006c" fill="none" stroke-width="2.4">
+      <g transform="rotate(-16)">
+        <line x1="0" y1="-26" x2="0" y2="26" />
+      </g>
+      <circle r="12" fill="#f4f0d8" />
+    </g>
+    <text x="450" y="386" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#111">HARBOR</text>
+    <text x="450" y="458" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#111">122.9  ·  23</text>
+
+    <!-- towered NORTH -->
+    <g transform="translate(760 280)" stroke="#1a3f86" fill="none" stroke-width="2.5">
+      <line x1="-28" y1="0" x2="28" y2="0" />
+      <line x1="0" y1="-24" x2="0" y2="24" />
+      <circle r="12" fill="#f4f0d8" />
+    </g>
+    <text x="760" y="252" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#111">NORTH</text>
+    <text x="760" y="318" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#111">CT 118.3 · 210</text>
+
+    <!-- obstruction -->
+    <g transform="translate(1020 300)" fill="#1c1c1c" font-family="ui-sans-serif, system-ui, sans-serif">
+      <text x="0" y="-22" text-anchor="middle" font-size="13" font-weight="700">2049</text>
+      <text x="0" y="-8" text-anchor="middle" font-size="12">(549)</text>
+      <line x1="0" y1="-2" x2="0" y2="16" stroke="#1c1c1c" stroke-width="1.6" />
+      <polygon points="0,4 9,20 -9,20" fill="none" stroke="#1c1c1c" stroke-width="1.5" />
+      <circle cx="0" cy="-2" r="2.2" />
+    </g>
+
+    <!-- shoreline point label, small, as a chart name not a teaching callout -->
+    <text x="362" y="600" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#1c3c52">HARBOR PT</text>
+
+    <!-- scale and north -->
+    <g transform="translate(470 64)" font-family="ui-sans-serif, system-ui, sans-serif" fill="#222">
+      <polygon points="0,-14 5,8 -5,8" />
+      <text x="0" y="22" text-anchor="middle" font-size="12" font-weight="700">N</text>
+    </g>
+    <g transform="translate(24 700)" font-family="ui-sans-serif, system-ui, sans-serif" fill="#17324d">
+      <rect x="0" y="0" width="150" height="8" fill="#17324d" />
+      <rect x="0" y="0" width="75" height="8" fill="#f4f0d8" stroke="#17324d" />
+      <text x="0" y="24" font-size="11">0</text>
+      <text x="128" y="24" font-size="11">10 NM</text>
+    </g>
+
+    <!-- title cartouche -->
+    <g font-family="ui-sans-serif, system-ui, sans-serif">
+      <rect x="18" y="16" width="248" height="74" fill="#fffef8" stroke="#1d4e89" stroke-width="1.6" />
+      <text x="30" y="36" font-size="11" fill="#1d4e89" letter-spacing="0.12em">AVIATION NORTH</text>
+      <text x="30" y="56" font-size="18" font-weight="700" fill="#142033">NORTH HARBOR</text>
+      <text x="30" y="74" font-size="10" fill="#5c5346">TRAINING SECTIONAL — NOT FOR NAVIGATION</text>
+    </g>
+  </g>
+
+  <rect x="8" y="8" width="1184" height="744" fill="none" stroke="#1a1a1a" stroke-width="2.2" />
+  <rect x="13" y="13" width="1174" height="734" fill="none" stroke="#1a1a1a" stroke-width="0.6" />
+</svg>

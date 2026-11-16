@@ -1,6 +1,15 @@
+import { NextResponse } from "next/server";
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+const demoPreview =
+  process.env.DEMO_PREVIEW === "1" && process.env.NODE_ENV !== "production";
+
+/** DEMO_PREVIEW is the local screenshot path in auth-guard. Skip Clerk when it is on. */
+export default demoPreview
+  ? function demoPreviewProxy() {
+      return NextResponse.next();
+    }
+  : clerkMiddleware();
 
 export const config = {
   matcher: [

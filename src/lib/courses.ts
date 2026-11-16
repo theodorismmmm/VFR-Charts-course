@@ -53,7 +53,7 @@ export const courses: Course[] = [
     title: "VFR Basics",
     tagline: "See the sky the way a chart describes it.",
     description:
-      "Learn Visual Flight Rules from the ground up—airport shapes, runway logic, chart symbols, and airspace—using real airport photos and real VFR charts that get more complex as you go.",
+      "Learn Visual Flight Rules from the ground up—airport shapes, runway logic, chart symbols, and airspace—using real airport photos and real VFR charts. Each lesson marks the picture, then asks you to click the spot yourself.",
     coverImage: "/airports/13-anchorage-sectional.jpg",
     lessons: [
       {

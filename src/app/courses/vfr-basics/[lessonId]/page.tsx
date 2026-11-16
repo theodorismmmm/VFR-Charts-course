@@ -4,7 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CompleteLessonButton } from "@/components/complete-lesson-button";
 import { DifficultyBadge } from "@/components/difficulty-badge";
+import { MarkedPlate } from "@/components/marked-plate";
 import { getLesson, VFR_BASICS_COURSE_ID } from "@/lib/courses";
+import { getPlate } from "@/lib/plates";
 import { getCourseProgress } from "@/lib/progress";
 
 type PageProps = {
@@ -23,6 +25,8 @@ export default async function LessonPage({ params }: PageProps) {
 
   const progress = await getCourseProgress(userId, course.id);
   const completed = progress.some((p) => p.lesson_id === lesson.id && p.completed);
+  const plate = getPlate(lesson.id);
+  const extras = [lesson.image, ...lesson.gallery].filter((img) => img.src !== plate.src);
 
   return (
     <div className="page-shell">
@@ -36,22 +40,9 @@ export default async function LessonPage({ params }: PageProps) {
 
       <div className="lesson-layout">
         <div className="lesson-visuals">
-          <figure className="lesson-hero-img">
-            <Image
-              src={lesson.image.src}
-              alt={lesson.image.alt}
-              fill
-              priority
-              sizes="(max-width: 980px) 100vw, 55vw"
-              style={{ objectFit: "cover" }}
-            />
-            <figcaption>
-              {lesson.airport.name} ({lesson.airport.code}) — {lesson.image.credit}
-            </figcaption>
-          </figure>
-          <p className="lesson-image-caption">{lesson.image.caption}</p>
+          <MarkedPlate key={plate.lessonId} plate={plate} />
 
-          {lesson.gallery.map((img) => (
+          {extras.map((img) => (
             <figure key={img.src} className="lesson-gallery-img">
               <Image
                 src={img.src}
