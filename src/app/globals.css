@@ -479,7 +479,7 @@ img {
 
 @media (min-width: 980px) {
   .lesson-layout {
-    grid-template-columns: 1.15fr 0.95fr;
+    grid-template-columns: 1.2fr 0.9fr;
     align-items: start;
   }
 }
@@ -487,8 +487,6 @@ img {
 .lesson-visuals {
   display: grid;
   gap: 1rem;
-  position: sticky;
-  top: 5.5rem;
   align-self: start;
 }
 
@@ -592,12 +590,6 @@ img {
 .map-legend span {
   color: #c5d2e0;
   font-size: 0.92rem;
-}
-
-@media (max-width: 979px) {
-  .lesson-visuals {
-    position: static;
-  }
 }
 
 .lesson-panel {
@@ -740,6 +732,319 @@ img {
   50% {
     opacity: 0.7;
     transform: translateY(-1px) scale(0.92);
+  }
+}
+
+.plate {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.plate__tabs {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.plate__tab {
+  flex: 1;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  padding: 0.65rem 0.5rem;
+  cursor: pointer;
+}
+
+.plate__tab[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1a1203;
+}
+
+.plate__prompt-block {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.plate__kicker {
+  margin: 0;
+  color: var(--sky-bright);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.plate__prompt {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.plate__stage {
+  position: relative;
+}
+
+.plate__frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0a1624;
+  border: 1px solid var(--line);
+}
+
+.plate__img {
+  object-fit: contain;
+  user-select: none;
+}
+
+img.plate__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.plate__draw {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.plate__glyph {
+  fill: none;
+  stroke: #f0b429;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.plate__glyph--ok {
+  stroke: #3d9b6e;
+}
+
+.plate__glyph--miss {
+  stroke: #e0a15a;
+}
+
+.plate__hit {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+
+.plate__hit:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.plate__miss {
+  position: absolute;
+  z-index: 3;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: -0.45rem 0 0 -0.45rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--hard);
+  pointer-events: none;
+  box-shadow: 0 0 0 2px rgba(196, 92, 74, 0.45);
+}
+
+.plate__pin {
+  position: absolute;
+  z-index: 3;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.plate__num {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #1a1203;
+  font-weight: 800;
+  font-size: 0.85rem;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.plate__pin[aria-pressed="true"] .plate__num {
+  outline: 3px solid var(--sky-bright);
+  outline-offset: 1px;
+}
+
+.plate__pin--ok .plate__num {
+  background: var(--easy);
+  color: #06210f;
+}
+
+.plate__pin--miss .plate__num {
+  background: #e0a15a;
+  color: #2a1604;
+}
+
+.plate__tag {
+  position: absolute;
+  white-space: nowrap;
+  background: rgba(6, 16, 26, 0.9);
+  color: #f4f7fb;
+  border: 1px solid rgba(240, 180, 41, 0.9);
+  padding: 0.12rem 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.plate__tag--off {
+  display: none;
+}
+
+.plate__tag--e { left: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
+.plate__tag--w { right: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
+.plate__tag--n { bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+.plate__tag--s { top: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+.plate__tag--ne { left: calc(100% + 6px); bottom: calc(100% - 4px); }
+.plate__tag--nw { right: calc(100% + 6px); bottom: calc(100% - 4px); }
+.plate__tag--se { left: calc(100% + 6px); top: calc(100% - 4px); }
+.plate__tag--sw { right: calc(100% + 6px); top: calc(100% - 4px); }
+
+.plate__caption {
+  display: grid;
+  gap: 0.2rem;
+  color: #dce6f1;
+  font-size: 0.9rem;
+}
+
+.plate__caption span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.plate__keylist {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.plate__key {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  text-align: left;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit;
+  font: inherit;
+  padding: 0.45rem 0.5rem;
+  cursor: pointer;
+}
+
+.plate__key.is-on {
+  border-color: rgba(240, 180, 41, 0.7);
+  background: rgba(212, 160, 23, 0.1);
+}
+
+.plate__key-num {
+  width: 1.4rem;
+  height: 1.4rem;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: #1a1203;
+  font-weight: 800;
+  font-size: 0.78rem;
+}
+
+.plate__key strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.plate__key-detail {
+  display: block;
+  margin-top: 0.2rem;
+  color: #d5deea;
+  font-size: 0.88rem;
+  font-weight: 450;
+}
+
+.plate__quiz {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.plate__note {
+  margin: 0;
+  color: #e7eef6;
+}
+
+.plate__note--quiet {
+  color: var(--muted);
+}
+
+.plate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.plate__score {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.plate__score li {
+  padding-left: 0.7rem;
+  border-left: 3px solid var(--line);
+}
+
+.plate__score .is-found {
+  border-left-color: var(--easy);
+}
+
+.plate__score .is-missed {
+  border-left-color: #e0a15a;
+}
+
+@media (max-width: 720px) {
+  .plate__pin:not([aria-pressed="true"]) .plate__tag {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate__pin,
+  .plate__num {
+    transition: none;
   }
 }
 

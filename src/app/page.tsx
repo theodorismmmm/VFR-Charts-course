@@ -3,6 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+const demoPreview =
+  process.env.DEMO_PREVIEW === "1" && process.env.NODE_ENV !== "production";
+
 export default function HomePage() {
   return (
     <>
@@ -28,26 +31,37 @@ export default function HomePage() {
             airport photos that grow from easy fields to hard hubs.
           </p>
           <div className="hero__actions">
-            <Suspense fallback={<Link href="/sign-in" className="btn btn--primary">Log in</Link>}>
-              <Show when="signed-out">
-                <SignInButton mode="modal">
-                  <button type="button" className="btn btn--primary">
-                    Log in to view courses
-                  </button>
-                </SignInButton>
-                <Link href="/sign-up" className="btn btn--ghost">
-                  Create account
-                </Link>
-              </Show>
-              <Show when="signed-in">
+            {demoPreview ? (
+              <>
                 <Link href="/courses" className="btn btn--primary">
                   Open courses
                 </Link>
                 <Link href="/courses/vfr-basics" className="btn btn--ghost">
                   Continue VFR Basics
                 </Link>
-              </Show>
-            </Suspense>
+              </>
+            ) : (
+              <Suspense fallback={<Link href="/sign-in" className="btn btn--primary">Log in</Link>}>
+                <Show when="signed-out">
+                  <SignInButton mode="modal">
+                    <button type="button" className="btn btn--primary">
+                      Log in to view courses
+                    </button>
+                  </SignInButton>
+                  <Link href="/sign-up" className="btn btn--ghost">
+                    Create account
+                  </Link>
+                </Show>
+                <Show when="signed-in">
+                  <Link href="/courses" className="btn btn--primary">
+                    Open courses
+                  </Link>
+                  <Link href="/courses/vfr-basics" className="btn btn--ghost">
+                    Continue VFR Basics
+                  </Link>
+                </Show>
+              </Suspense>
+            )}
           </div>
         </div>
       </section>
@@ -67,7 +81,7 @@ export default function HomePage() {
           </div>
           <div>
             <h3>Chart literacy</h3>
-            <p>FAA sectional excerpts teach symbols, airspace rings, and route briefing habits.</p>
+            <p>Marked photos and a training sectional, then click-where-it-is quizzes on the same picture.</p>
           </div>
           <div>
             <h3>Progress that sticks</h3>
