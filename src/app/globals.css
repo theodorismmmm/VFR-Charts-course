@@ -479,9 +479,17 @@ img {
 
 @media (min-width: 980px) {
   .lesson-layout {
-    grid-template-columns: 1.35fr 0.9fr;
+    grid-template-columns: 1.15fr 0.95fr;
     align-items: start;
   }
+}
+
+.lesson-visuals {
+  display: grid;
+  gap: 1rem;
+  position: sticky;
+  top: 5.5rem;
+  align-self: start;
 }
 
 .lesson-hero-img {
@@ -510,6 +518,86 @@ img {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
   color: #dce6f1;
   font-size: 0.82rem;
+}
+
+.lesson-image-caption {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.lesson-gallery-img {
+  margin: 0;
+  border: 1px solid var(--line);
+  background: #0a1624;
+  overflow: hidden;
+  animation: rise-in 700ms ease both;
+}
+
+.lesson-gallery-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #f4f0e6;
+}
+
+.lesson-gallery-img figcaption {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem 0.9rem;
+  color: #dce6f1;
+  font-size: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.lesson-gallery-img figcaption span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.map-legend {
+  margin: 0 0 1.35rem;
+  padding: 1rem;
+  border: 1px solid rgba(110, 182, 217, 0.28);
+  background: rgba(61, 126, 166, 0.1);
+}
+
+.map-legend h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+  color: var(--sky-bright);
+}
+
+.map-legend ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.map-legend li {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.map-legend strong {
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.map-legend span {
+  color: #c5d2e0;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 979px) {
+  .lesson-visuals {
+    position: static;
+  }
 }
 
 .lesson-panel {

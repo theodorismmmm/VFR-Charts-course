@@ -30,22 +30,44 @@ export default async function LessonPage({ params }: PageProps) {
         <Link href="/courses/vfr-basics">{course.title}</Link>
         {" · "}
         Lesson {lesson.order} of {course.lessons.length}
+        {" · "}
+        {lesson.readingMinutes} min read
       </p>
 
       <div className="lesson-layout">
-        <figure className="lesson-hero-img">
-          <Image
-            src={lesson.image.src}
-            alt={lesson.image.alt}
-            fill
-            priority
-            sizes="(max-width: 980px) 100vw, 60vw"
-            style={{ objectFit: "cover" }}
-          />
-          <figcaption>
-            {lesson.airport.name} ({lesson.airport.code}) — {lesson.image.credit}
-          </figcaption>
-        </figure>
+        <div className="lesson-visuals">
+          <figure className="lesson-hero-img">
+            <Image
+              src={lesson.image.src}
+              alt={lesson.image.alt}
+              fill
+              priority
+              sizes="(max-width: 980px) 100vw, 55vw"
+              style={{ objectFit: "cover" }}
+            />
+            <figcaption>
+              {lesson.airport.name} ({lesson.airport.code}) — {lesson.image.credit}
+            </figcaption>
+          </figure>
+          <p className="lesson-image-caption">{lesson.image.caption}</p>
+
+          {lesson.gallery.map((img) => (
+            <figure key={img.src} className="lesson-gallery-img">
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={1200}
+                height={800}
+                sizes="(max-width: 980px) 100vw, 55vw"
+                style={{ width: "100%", height: "auto" }}
+              />
+              <figcaption>
+                <strong>{img.caption}</strong>
+                <span>{img.credit}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
 
         <article className="lesson-panel">
           <DifficultyBadge level={lesson.difficulty} />
@@ -58,12 +80,24 @@ export default async function LessonPage({ params }: PageProps) {
             <span style={{ color: "var(--muted)" }}>{lesson.airport.note}</span>
           </div>
 
+          <div className="map-legend">
+            <h2>What the map marks mean</h2>
+            <ul>
+              {lesson.mapLegend.map((item) => (
+                <li key={item.symbol}>
+                  <strong>{item.symbol}</strong>
+                  <span>{item.meaning}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div className="lesson-copy">
             {lesson.sections.map((section) => (
               <section key={section.heading}>
                 <h2>{section.heading}</h2>
                 {section.body.map((paragraph) => (
-                  <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+                  <p key={paragraph.slice(0, 64)}>{paragraph}</p>
                 ))}
               </section>
             ))}
