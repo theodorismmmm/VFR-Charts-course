@@ -2,8 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import type { AtcLevel } from "@/lib/flight-types";
-
-export const ATC_LEVEL_KEY = "an-atc-level";
+import { flightStorageKey } from "@/lib/flight-log";
 
 const listeners = new Set<() => void>();
 
@@ -27,22 +26,23 @@ function parseLevel(value: string | null): AtcLevel {
   return "easy";
 }
 
-function readLevel(): AtcLevel {
+function readLevel(userId: string): AtcLevel {
   try {
-    return parseLevel(window.localStorage.getItem(ATC_LEVEL_KEY));
+    return parseLevel(window.localStorage.getItem(flightStorageKey(userId, "level")));
   } catch {
     return "easy";
   }
 }
 
-export function setAtcLevel(level: AtcLevel) {
-  window.localStorage.setItem(ATC_LEVEL_KEY, level);
-  emit();
-}
-
-export function useAtcLevel() {
-  const level = useSyncExternalStore(subscribe, readLevel, () => "easy" as AtcLevel);
-  return { level, setLevel: setAtcLevel };
+export function useAtcLevel(userId: string) {
+  const level = useSyncExternalStore(subscribe, () => readLevel(userId), () => "easy" as AtcLevel);
+  return {
+    level,
+    setLevel(level: AtcLevel) {
+      window.localStorage.setItem(flightStorageKey(userId, "level"), level);
+      emit();
+    },
+  };
 }
 
 export function AtcLevelSwitch({

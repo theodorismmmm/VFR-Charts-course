@@ -1,3 +1,4 @@
+import { flightStorageKey } from "../src/lib/flight-log";
 import { flights } from "../src/lib/flights";
 import { symbols } from "../src/lib/symbols";
 import type { AtcLevel } from "../src/lib/flight-types";
@@ -76,6 +77,13 @@ if (hudson) {
   }
   assert(text.toLowerCase().includes("west shore") || text.includes("west shoreline"), "hudson missing the west shore");
 }
+
+const pilotA = flightStorageKey("user_a", "flights");
+const pilotB = flightStorageKey("user_b", "flights");
+assert(pilotA !== pilotB, "flight history is shared across accounts");
+assert(flightStorageKey("user_a", "symbols") !== pilotA, "symbol log uses the flight-score key");
+assert(flightStorageKey("user a/../b", "level").includes(encodeURIComponent("user a/../b")), "user id is not encoded");
+assert(!pilotA.startsWith("an-flight-log"), "unscoped flight key is still in use");
 
 if (failed > 0) {
   console.error(`${failed} flight check${failed === 1 ? "" : "s"} failed`);

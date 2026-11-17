@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
-import { AtcLevelSwitch, setAtcLevel, useAtcLevel } from "@/components/atc-level";
+import { AtcLevelSwitch, useAtcLevel } from "@/components/atc-level";
 import { SymbolGlyph } from "@/components/symbol-glyph";
+import { flightStorageKey } from "@/lib/flight-log";
 import { flights, flightsForSymbol } from "@/lib/flights";
 import { SYMBOL_GROUPS, symbols } from "@/lib/symbols";
 
@@ -11,13 +12,21 @@ type Score = { clean: number; total: number; level: string };
 
 const emptyScores: Record<string, Score> = {};
 const emptyLearned = new Set<string>();
-let scoreCache: { raw: string; value: Record<string, Score> } = { raw: "", value: emptyScores };
-let learnedCache: { raw: string; value: Set<string> } = { raw: "", value: emptyLearned };
+let scoreCache: { key: string; raw: string; value: Record<string, Score> } = {
+  key: "",
+  raw: "",
+  value: emptyScores,
+};
+let learnedCache: { key: string; raw: string; value: Set<string> } = {
+  key: "",
+  raw: "",
+  value: emptyLearned,
+};
 
-export function FlyHome() {
-  const { level } = useAtcLevel();
-  const scores = useSyncExternalStore(subscribeNothing, readScores, () => emptyScores);
-  const learned = useSyncExternalStore(subscribeNothing, readLearned, () => emptyLearned);
+export function FlyHome({ userId }: { userId: string }) {
+  const { level, setLevel } = useAtcLevel(userId);
+  const scores = useSyncExternalStore(subscribeNothing, () => readScores(userId), () => emptyScores);
+  const learned = useSyncExternalStore(subscribeNothing, () => readLearned(userId), () => emptyLearned);
 
   const learnedCount = symbols.filter((symbol) => learned.has(symbol.id)).length;
 
@@ -36,7 +45,7 @@ export function FlyHome() {
           go-around. North Harbor, Seaview, and Metro are training fields with training frequencies. The Hudson
           exclusion and the LaGuardia arrival follow the published structure. None of this is for navigation.
         </p>
-        <AtcLevelSwitch level={level} onChange={setAtcLevel} />
+        <AtcLevelSwitch level={level} onChange={setLevel} />
       </div>
 
       <ol className="fly-list">
@@ -103,14 +112,15 @@ function subscribeNothing() {
   return () => {};
 }
 
-function readScores() {
+function readScores(userId: string) {
+  const key = flightStorageKey(userId, "flights");
   let raw = "";
   try {
-    raw = window.localStorage.getItem("an-flight-log") ?? "";
+    raw = window.localStorage.getItem(key) ?? "";
   } catch {
     return emptyScores;
   }
-  if (scoreCache.raw === raw) return scoreCache.value;
+  if (scoreCache.key === key && scoreCache.raw === raw) return scoreCache.value;
   const scores: Record<string, Score> = {};
   try {
     const parsed = JSON.parse(raw || "{}") as unknown;
@@ -127,28 +137,29 @@ function readScores() {
       }
     }
   } catch {
-    scoreCache = { raw, value: emptyScores };
+    scoreCache = { key, raw, value: emptyScores };
     return emptyScores;
   }
-  scoreCache = { raw, value: scores };
+  scoreCache = { key, raw, value: scores };
   return scores;
 }
 
-function readLearned() {
+function readLearned(userId: string) {
+  const key = flightStorageKey(userId, "symbols");
   let raw = "";
   try {
-    raw = window.localStorage.getItem("an-symbol-log") ?? "";
+    raw = window.localStorage.getItem(key) ?? "";
   } catch {
     return emptyLearned;
   }
-  if (learnedCache.raw === raw) return learnedCache.value;
+  if (learnedCache.key === key && learnedCache.raw === raw) return learnedCache.value;
   try {
     const parsed = JSON.parse(raw || "[]") as unknown;
     const value = new Set(Array.isArray(parsed) ? parsed.filter((item) => typeof item === "string") : []);
-    learnedCache = { raw, value };
+    learnedCache = { key, raw, value };
     return value;
   } catch {
-    learnedCache = { raw, value: emptyLearned };
+    learnedCache = { key, raw, value: emptyLearned };
     return emptyLearned;
   }
 }

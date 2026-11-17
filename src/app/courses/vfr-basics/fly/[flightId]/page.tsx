@@ -23,13 +23,13 @@ export default function FlightPage({ params }: PageProps) {
 }
 
 async function FlightRoute({ params }: PageProps) {
-  await requireUser();
+  const userId = await requireUser();
   const { flightId } = await params;
   const flight = getFlight(flightId);
   if (!flight) notFound();
   return (
     <div className="page-shell page-shell--wide">
-      <FlightSim flight={flight} />
+      <FlightSim flight={flight} userId={userId} />
     </div>
   );
 }

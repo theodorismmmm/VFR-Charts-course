@@ -2,15 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { AtcLevelSwitch, setAtcLevel, useAtcLevel } from "@/components/atc-level";
+import { AtcLevelSwitch, useAtcLevel } from "@/components/atc-level";
 import { FlightChart } from "@/components/flight-chart";
 import { SymbolGlyph } from "@/components/symbol-glyph";
 import type { AtcLevel, Flight, Step } from "@/lib/flight-types";
+import { flightStorageKey } from "@/lib/flight-log";
 import { flights } from "@/lib/flights";
 import { getSymbol } from "@/lib/symbols";
-
-const SYMBOL_KEY = "an-symbol-log";
-const FLIGHT_KEY = "an-flight-log";
 
 type LogKind = "atc" | "you" | "amend" | "correction";
 
@@ -35,8 +33,8 @@ const waitFor: Record<AtcLevel, number> = {
   hard: 4500,
 };
 
-export function FlightSim({ flight }: { flight: Flight }) {
-  const { level } = useAtcLevel();
+export function FlightSim({ flight, userId }: { flight: Flight; userId: string }) {
+  const { level, setLevel } = useAtcLevel(userId);
   const [beatIndex, setBeatIndex] = useState(0);
   const [legs, setLegs] = useState<LegRecord[]>([]);
   const [done, setDone] = useState(false);
@@ -61,7 +59,7 @@ export function FlightSim({ flight }: { flight: Flight }) {
       return;
     }
     setDone(true);
-    saveProgress(flight, nextLegs, level);
+    saveProgress(userId, flight, nextLegs, level);
   }
 
   const clean = legs.filter((leg) => leg.outcome === "clean").length;
@@ -84,7 +82,7 @@ export function FlightSim({ flight }: { flight: Flight }) {
           <p className="fly-sim__title">{flight.title}</p>
         </div>
         <div>
-          <AtcLevelSwitch level={level} disabled={done} onChange={setAtcLevel} />
+          <AtcLevelSwitch level={level} disabled={done} onChange={setLevel} />
           {done ? null : <p className="fly-level-note">Changing the level restarts this leg.</p>}
         </div>
       </div>
@@ -482,18 +480,20 @@ function liveText(lines: LogLine[]) {
   return lines.map((line) => `${line.who}. ${line.text}`).join(" ");
 }
 
-function saveProgress(flight: Flight, legs: LegRecord[], level: AtcLevel) {
-  const known = readIds(SYMBOL_KEY);
+function saveProgress(userId: string, flight: Flight, legs: LegRecord[], level: AtcLevel) {
+  const symbolsKey = flightStorageKey(userId, "symbols");
+  const flightsKey = flightStorageKey(userId, "flights");
+  const known = readIds(symbolsKey);
   for (const beat of flight.beats) known.add(beat.symbolId);
-  window.localStorage.setItem(SYMBOL_KEY, JSON.stringify([...known]));
-  const log = readObject(FLIGHT_KEY);
+  window.localStorage.setItem(symbolsKey, JSON.stringify([...known]));
+  const log = readObject(flightsKey);
   log[flight.id] = {
     clean: legs.filter((leg) => leg.outcome === "clean").length,
     total: legs.length,
     level,
     at: Date.now(),
   };
-  window.localStorage.setItem(FLIGHT_KEY, JSON.stringify(log));
+  window.localStorage.setItem(flightsKey, JSON.stringify(log));
 }
 
 function readIds(key: string) {
