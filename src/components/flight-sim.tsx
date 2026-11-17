@@ -109,9 +109,13 @@ export function FlightSim({ flight, userId }: { flight: Flight; userId: string }
             x={beat.x}
             y={beat.y}
             heading={beat.heading}
+            chartSrc={flight.chartSrc}
+            chartWidth={flight.chartWidth}
+            chartHeight={flight.chartHeight}
           />
           <figcaption>
-            {flight.chartTitle}. The gold mark is the symbol this leg is about. Call sign Cessna 123AB.
+            {flight.chartCredit ?? flight.chartTitle}. The gold mark is the symbol this leg is about. Call sign
+            Cessna 123AB.
           </figcaption>
         </figure>
 

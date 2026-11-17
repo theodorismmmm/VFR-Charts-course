@@ -1325,6 +1325,20 @@ img.plate__img {
   height: auto;
   display: block;
   font-family: var(--font-body), "Segoe UI", sans-serif;
+  background: #f3efd6;
+}
+
+.fly-chart--real {
+  /* chart-fill-fix */
+  background: #1a1a1a;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.fly-plate:has(.fly-chart--real) {
+  max-height: min(78vh, 920px);
+  overflow: auto;
 }
 
 .fly-chart .is-hot {

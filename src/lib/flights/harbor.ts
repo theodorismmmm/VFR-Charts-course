@@ -196,10 +196,14 @@ export const harbor: Flight = {
   summary:
     "A public magenta airport, a private strip, and a restricted area off the departure end. You announce, you fly left traffic, and nobody issues you a clearance.",
   chartTitle: "NORTH HARBOR — TRAINING SECTIONAL — NOT FOR NAVIGATION",
+  chartCredit: "Aviation North training sectional — not a real chart and not for navigation.",
   track: "M 160 140 L 280 220 L 360 470 L 430 470 L 500 360 L 560 300 L 800 280 L 760 500",
   marks: [
     { kind: "water", d: "M0 0 H230 C300 90 250 170 290 260 C330 360 300 430 360 520 C400 580 320 640 200 640 H0 Z" },
     { kind: "shade", d: "M820 40 C900 80 980 60 1000 40 L1000 180 C920 160 860 140 820 40 Z", fill: "#e7c56a" },
+    { kind: "shade", d: "M780 90 C860 120 940 100 980 80 L1000 210 C920 190 840 160 780 90 Z", fill: "#d59a48" },
+    { kind: "city", d: "M560 180 H720 V300 H560 Z" },
+    { kind: "path", d: "M640 300 C700 280 760 250 820 220", stroke: "#8d8680", sw: 2.4 },
     { id: "class-e", kind: "ring", cx: 430, cy: 360, r: 108, stroke: "#d1006c", dash: "7 5", label: "CLASS E", lx: 430, ly: 242 },
     { id: "class-g", kind: "label", x: 120, y: 78, text: "CLASS G", fill: "#5c5346", size: 15 },
     { id: "magenta-airport", kind: "airport", x: 430, y: 360, tower: false, name: "HARBOR", detail: "122.9 · 23" },
@@ -213,6 +217,7 @@ export const harbor: Flight = {
     { kind: "mef", x: 860, y: 120, text: "02" },
     { id: "obstruction", kind: "obstruction", x: 860, y: 300, label: "2049 (549)" },
     { id: "restricted", kind: "box", x: 700, y: 450, w: 180, h: 120, label: "R-4802" },
+    { kind: "note", x: 18, y: 16, lines: ["AVIATION NORTH", "NORTH HARBOR", "TRAINING SECTIONAL"] },
   ],
   beats: [
     {

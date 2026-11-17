@@ -94,7 +94,8 @@ export type ChartMark =
   | { id?: string; kind: "private"; x: number; y: number; name: string }
   | { id?: string; kind: "holdshort"; x: number; y: number }
   | { id?: string; kind: "cone"; x: number; y: number }
-  | { id?: string; kind: "note"; x: number; y: number; lines: string[] };
+  | { id?: string; kind: "note"; x: number; y: number; lines: string[] }
+  | { id?: string; kind: "city"; d: string };
 
 export type Flight = {
   id: string;
@@ -105,6 +106,11 @@ export type Flight = {
   airspace: string;
   summary: string;
   chartTitle: string;
+  /** Optional real FAA / training chart plate under the overlays. */
+  chartSrc?: string;
+  chartWidth?: number;
+  chartHeight?: number;
+  chartCredit?: string;
   track: string;
   marks: ChartMark[];
   beats: Beat[];
