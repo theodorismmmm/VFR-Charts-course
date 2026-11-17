@@ -146,9 +146,13 @@ export const metro: Flight = {
   summary:
     "A training Class C. You stay outside until the clearance actually says you are in, then you follow a late heading around the parachute area. Training frequencies.",
   chartTitle: "METRO — TRAINING CLASS C — NOT FOR NAVIGATION",
+  chartCredit: "Aviation North training sectional — not a real chart and not for navigation.",
   track: "M 480 560 L 480 420 L 420 340 L 470 280",
   marks: [
-    { kind: "shade", d: "M0 0 H1000 V640 H0 Z", fill: "#f4f0d8" },
+    { kind: "city", d: "M360 180 H680 V420 H360 Z" },
+    { kind: "water", d: "M780 0 H1000 V220 C920 180 860 120 780 0 Z" },
+    { kind: "shade", d: "M40 40 C120 20 180 80 160 160 C140 220 60 200 40 120 Z", fill: "#efe0a4" },
+    { kind: "path", d: "M500 420 C560 400 640 360 760 300", stroke: "#8d8680", sw: 2.4 },
     {
       id: "class-c-shelf",
       kind: "ring",

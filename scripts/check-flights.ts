@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { flightStorageKey } from "../src/lib/flight-log";
 import { flights } from "../src/lib/flights";
 import { symbols } from "../src/lib/symbols";
@@ -76,6 +78,15 @@ if (hudson) {
     assert(text.includes(needle), `hudson missing ${needle}`);
   }
   assert(text.toLowerCase().includes("west shore") || text.includes("west shoreline"), "hudson missing the west shore");
+  assert(Boolean(hudson.chartSrc?.includes("ny-hudson")), "hudson is not on the FAA SFRA plate");
+}
+
+assert(Boolean(lga?.chartSrc?.includes("ny-lga")), "laguardia is not on the FAA TAC plate");
+
+for (const flight of flights) {
+  if (!flight.chartSrc) continue;
+  assert(Boolean(flight.chartWidth && flight.chartHeight), `${flight.id} chart plate is missing size`);
+  assert(existsSync(join(process.cwd(), "public", flight.chartSrc.replace(/^\//, ""))), `${flight.id} missing ${flight.chartSrc}`);
 }
 
 const pilotA = flightStorageKey("user_a", "flights");

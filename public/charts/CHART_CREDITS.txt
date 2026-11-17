@@ -1,0 +1,6 @@
+FAA public-domain chart excerpts used for training overlays only.
+Source cycle: 10-29-2026 visual chart edition from aeronav.faa.gov.
+- ny-hudson-sfra.jpg — New York TAC, Special Flight Rules Area panel
+- ny-lga-tac.jpg — New York TAC, LaGuardia area crop
+- ny-hudson-heli.jpg — New York Helicopter Route Chart crop (optional reference)
+Not for navigation. Always use current official charts for flight.

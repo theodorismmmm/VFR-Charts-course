@@ -175,10 +175,14 @@ export const seaview: Flight = {
   summary:
     "A training tower under a Class B shelf. ATIS, a hold-short readback, line up and wait, then a takeoff clearance that may come late. Training frequencies, not a real field.",
   chartTitle: "SEAVIEW — TRAINING CLASS D — NOT FOR NAVIGATION",
+  chartCredit: "Aviation North training sectional — not a real chart and not for navigation.",
   track: "M 180 500 L 360 430 L 480 400 L 520 300 L 620 220",
   marks: [
-    { kind: "shade", d: "M0 0 H1000 V640 H0 Z", fill: "#f4f0d8" },
+    { kind: "water", d: "M0 420 C120 380 200 460 280 520 C360 580 220 640 0 640 Z" },
+    { kind: "city", d: "M360 220 H620 V420 H360 Z" },
     { kind: "shade", d: "M620 0 H1000 V200 C900 160 760 80 620 0 Z", fill: "#d6e4f0" },
+    { kind: "shade", d: "M780 40 C880 70 960 50 1000 30 L1000 140 C920 120 840 90 780 40 Z", fill: "#e7c56a" },
+    { kind: "path", d: "M480 420 C560 400 640 360 720 300", stroke: "#8d8680", sw: 2.6 },
     {
       id: "class-b-shelf",
       kind: "path",
