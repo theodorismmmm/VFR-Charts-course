@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { DifficultyBadge } from "@/components/difficulty-badge";
 import { ProgressBar } from "@/components/progress-bar";
 import { getCourse, VFR_BASICS_COURSE_ID } from "@/lib/courses";
+import { flights } from "@/lib/flights";
 import { getCourseProgress } from "@/lib/progress";
 
 export default async function VfrBasicsPage() {
@@ -58,6 +59,19 @@ export default async function VfrBasicsPage() {
           Cover chart: FAA Anchorage Sectional excerpt (public domain)
         </figcaption>
       </div>
+
+      <section className="fly-band">
+        <div>
+          <h2>Fly the chart</h2>
+          <p>
+            The lessons teach the picture. The flights are where you use it: tap the next call, and Medium or Hard
+            ATC changes the plan at the last second. Each tap teaches the symbol under it.
+          </p>
+        </div>
+        <Link href="/courses/vfr-basics/fly" className="btn btn--primary">
+          Open the {flights.length} flights
+        </Link>
+      </section>
 
       <div className="lesson-list">
         {course.lessons.map((lesson) => {
