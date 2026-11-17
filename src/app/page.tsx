@@ -81,7 +81,10 @@ export default function HomePage() {
           </div>
           <div>
             <h3>Chart literacy</h3>
-            <p>Marked photos and a training sectional, then click-where-it-is quizzes on the same picture.</p>
+            <p>
+              Marked photos and a training sectional, then flights where you tap the next call. Basic gives the plan.
+              Medium and Hard amend it at the last second, and each tap teaches the symbol.
+            </p>
           </div>
           <div>
             <h3>Progress that sticks</h3>
